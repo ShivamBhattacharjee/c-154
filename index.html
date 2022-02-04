@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    <script src="./components/Rotation.js"></script>
+    <script src="./components/game.js"></script>
+    <script src="./components/target.js"></script>
+    <script src="./components/collider.js"></script>
+
+  </head>
+
+  <body>
+    <a-scene background="color:#026F90">
+      <a-sky 
+      geometry="primitive: sphere;" 
+      material="shader: gradient; bottomColor: #00009e; topColor:109 205 227;offset: 0.0001;" 
+      radius="100" 
+      theta-length="180" 
+      side="double" 
+      animation="property: rotation; to: 0 300 0; easing:linear; loop: true; dur: 500000" ></a-sky>
+
+      <a-entity id="look" look-controls camera position="0 2 20"></a-entity>
+
+      <!--Asset Management-->
+      <a-assets timeout="10000">        
+        <a-asset-item
+          id="seaMap"
+          src="./assets/models/background/scene.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="diver"
+          src="./assets/models/diver/scene.gltf"
+        ></a-asset-item>
+        
+      </a-assets>
+
+      <!-- Terrain  -->
+      <a-entity
+        id="sea"
+        gltf-model="#seaMap"
+        position="-5 -5 -27"
+        scale="1.4 1.4 1.4"
+        terrain-rotation-reader
+        target-coin
+        fishes
+      >
+      </a-entity>
+      
+      <a-entity 
+      gltf-model="#diver"
+      scale="0.04 0.04 0.04"
+      position="0 3 16"
+      rotation="0 170 -5"
+      diver-rotation-reader 
+      dynamic-body="mass:0">
+    </a-entity>
+      
+    </a-scene>
+  </body>
+</html>
